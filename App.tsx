@@ -6,6 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { useState } from "react/cjs/react.development";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ResultView from "./src/components/ResultView";
+import Favorites from "./src/components/Favorites";
 
 const Tabs = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -22,7 +23,7 @@ function Home() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             switch (route.name) {
-              case "Music":
+              case "Favorites":
                 iconName = focused ? "heart" : "heart-outline";
                 break;
               case "Search":
@@ -40,6 +41,9 @@ function Home() {
         <Tabs.Screen name="Search">
           {(props) => <SearchView {...props} onAdd={addItem} />}
         </Tabs.Screen>
+        <Tabs.Screen name="Favorites">
+          {(props)=><Favorites {...props} libraryList={libraryList} />}
+        </Tabs.Screen> 
       </Tabs.Navigator>
   );
 }

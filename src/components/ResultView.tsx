@@ -1,12 +1,22 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { StyleSheet, Text, View,Image,Button } from "react-native";
+import { StyleSheet, Text, View,Image,Button, Linking } from "react-native";
 
 interface ResultViewProps{
   route:any;
 }
 
-const ResultView = ({route}: ResultViewProps, libraryList) => {
-  const{item, id} = route.params;
+const ResultView = ({route}: ResultViewProps) => {
+  const{item} = route.params;
+
+  const {navigate} = useNavigation();
+
+  const goFavorites = (item:Object)=>{
+    navigate('Favorites', {
+        item:item
+    }
+    );
+  };
   
   return (
     <View style={{ flex: 1 }}>
@@ -24,7 +34,7 @@ const ResultView = ({route}: ResultViewProps, libraryList) => {
                     color="black"
                     style={styles.button}
                     onPress={() => Linking.openURL(item.url)} />
-                <Button style={styles.button} title="Favories" onPress={() => { onAdd(item); navigation.navigate('Music');}}/>
+                <Button style={styles.button} title="Favories" onPress={() => { item.onAdd; goFavorites(item); }}/>
             </View>
         </View>
     </View>
