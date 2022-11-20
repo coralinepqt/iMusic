@@ -1,15 +1,12 @@
 import React from "react";
 import { useNavigation } from '@react-navigation/native';
-
 import {
     Image,
-    Button,
     FlatList,
     StyleSheet,
     Text,
     TextInput,
     SafeAreaView,
-    Linking,
     TouchableOpacity,
     View,
 } from "react-native";
@@ -50,7 +47,14 @@ const SearchView = ({ onAdd }) => {
         });
     };
 
-    const navigation = useNavigation();
+    const {navigate} = useNavigation();
+
+    const handleOnPress = (item:Object)=>{
+        navigate('Result', {
+            item:item
+        }
+        );
+      };
 
     useEffect(() => {
         const timeout = setTimeout(handleSubmit, 1000);
@@ -73,20 +77,23 @@ const SearchView = ({ onAdd }) => {
                     <FlatList
                         data={listResults}
                         renderItem={({ item }) => (
-                            <View style={styles.container}>
+                            <TouchableOpacity style={styles.container} 
+                            onPress={()=>handleOnPress(item)}>
                                 <Image style={styles.image} source={{ uri: item.artwork }} />
                                 <View style={styles.info}>
                                     <Text style={styles.title}>{item.title}</Text>
                                     <Text style={styles.details}>{item.artist}</Text>
                                 </View>
-                            </View>
-
+                            </TouchableOpacity>
                         )}
                         keyExtractor={(item) => item.id}
                     />
                 </SafeAreaView>
             </View>
+
+
         </View>
+        
     );
 };
 
