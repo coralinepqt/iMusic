@@ -33,7 +33,7 @@ const ResultView = ({route}: ResultViewProps) => {
                 <Text style={styles.details}>{item.artist}</Text>
               <Text style={styles.text}>Genre : {item.genre}</Text>
               </View>
-              <TouchableOpacity onPress={()=>{setLike(!like); item.onAdd;}}>
+              <TouchableOpacity onPress={()=>{setLike(!like); item.onAdd; goFavorites(item)}}>
                 {
                   like ?(
                   <Ionicons name="heart" size={30} color="red" />
