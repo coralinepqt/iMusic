@@ -33,7 +33,7 @@ const searchItunes = async (query) => {
     );
     const json = await response.json();
     return json.results
-        .filter((item) => item.trackId && item.trackName)
+        .filter((item) => item.trackId && item.trackName && item.kind=='song')
         .map(formatResponse);
 };
 
@@ -52,8 +52,7 @@ const SearchView = ({ onAdd }) => {
     const handleOnPress = (item:Object)=>{
         navigate('Result', {
             item:item
-        }
-        );
+        });
       };
 
     useEffect(() => {
@@ -64,7 +63,7 @@ const SearchView = ({ onAdd }) => {
     }, [input]);
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1}}>
             <Text style={styles.header}>Search</Text>
             <TextInput
                 value={input}
@@ -81,7 +80,7 @@ const SearchView = ({ onAdd }) => {
                             onPress={()=>handleOnPress(item)}>
                                 <Image style={styles.image} source={{ uri: item.artwork }} />
                                 <View style={styles.info}>
-                                    <Text style={styles.title}>{item.title}</Text>
+                                    <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
                                     <Text style={styles.details}>{item.artist}</Text>
                                 </View>
                             </TouchableOpacity>
@@ -98,13 +97,13 @@ const SearchView = ({ onAdd }) => {
 };
 
 const styles = StyleSheet.create({
-    container: { flexDirection: "row" },
-    image: { width: 50, height: 50, margin: 5, borderRadius: 50 },
+    container: { flexDirection: "row", margin:10 },
+    image: { width: 50, height: 50, marginRight: 12, borderRadius: 50 },
     info: { flex: 1, justifyContent: "center" },
-    title: { fontSize: 20 },
+    title: { fontSize: 16, fontWeight:"bold"},
     details: { color: "gray" },
     button: {
-        backgroundColor: "black"
+        backgroundColor: "white"
     },
     header: {
         fontSize: 30,

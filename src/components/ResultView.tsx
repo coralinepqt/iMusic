@@ -1,12 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { StyleSheet, Text, View,Image,Button, Linking } from "react-native";
+import React, { useState } from "react";
+import {Ionicons } from '@expo/vector-icons';
+import { StyleSheet, Text, View,Image,Button, Linking, Dimensions, TouchableOpacity } from "react-native";
 
 interface ResultViewProps{
   route:any;
 }
 
 const ResultView = ({route}: ResultViewProps) => {
+  const [like, setLike] = useState(false);
   const{item} = route.params;
 
   const {navigate} = useNavigation();
@@ -19,49 +21,54 @@ const ResultView = ({route}: ResultViewProps) => {
   };
   
   return (
+    console.log(item),
     <View style={{ flex: 1 }}>
-       <Text style={styles.header1}>Details Music</Text>
        <View style={styles.container}>
             <View style={styles.header}>
                 <Image style={styles.image} source={{ uri: item.artwork }} />
             </View>
             <View style={styles.info}>
+              <View>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.details}>{item.artist}</Text>
-                <Text style={styles.text}>Genre : {item.genre}</Text>
-                <Text style={styles.text}>Price : {item.price} $</Text>
-                <Button title='Listening preview'
-                    color="black"
-                    style={styles.button}
-                    onPress={() => Linking.openURL(item.url)} />
-                <Button style={styles.button} title="Favories" onPress={() => { item.onAdd; goFavorites(item); }}/>
+              <Text style={styles.text}>Genre : {item.genre}</Text>
+              </View>
+              <TouchableOpacity onPress={()=>{setLike(!like); item.onAdd;}}>
+                {
+                  like ?(
+                  <Ionicons name="heart" size={30} color="red" />
+                  ): (
+                  <Ionicons name="heart-outline" size={30} color="black" />)
+                }
+                
+              </TouchableOpacity>
             </View>
+              <TouchableOpacity style={styles.play} onPress={() => Linking.openURL(item.url)}>
+                <Ionicons name="play-circle" size={70} color="black" />
+              </TouchableOpacity>
         </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center", },
-  image: { width: 200, height: 200 },
-  info: { flex: 1, },
-  title: { fontSize: 20 },
-  details: { color: "gray" },
+  container: { 
+    flex: 1,  
+    padding: 20,
+  },
+  image: { flex:1, height:Dimensions.get("window").width - 40 },
+  info: { flex:1,marginTop:20, flexDirection: "row", justifyContent:'space-between'},
+  title: { fontSize: 20, fontWeight:'bold' },
+  details: { color: "gray"},
   text: { fontSize: 15 },
   header: {
       justifyContent: "center",
-      padding: 20,
       flexDirection: "row"
   },
-  header1: {
-    fontSize: 30,
-    backgroundColor: "black",
-    color: "white",
-    padding: 10,
+  play:{
+    flex:1,
+    alignItems:'center'
   },
-  button:{
-      backgroundColor:"black"
-  }
 });
 
 export default ResultView;
