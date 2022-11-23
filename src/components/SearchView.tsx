@@ -11,6 +11,7 @@ import {
     View,
 } from "react-native";
 import { useEffect, useState } from "react/cjs/react.development";
+import {Ionicons } from '@expo/vector-icons';
 
 const formatResponse = (item) => {
     return {
@@ -39,7 +40,9 @@ const searchItunes = async (query) => {
 
 const SearchView = ({ onAdd }) => {
     const [input, setInput] = useState("");
-    const [listResults, setListResults] = useState([]);
+    const [listResults, setListResults] = useState([]);  
+    const [like, setLike] = useState(false);
+
 
     const handleSubmit = () => {
         searchItunes(input).then((result) => {
@@ -54,6 +57,13 @@ const SearchView = ({ onAdd }) => {
             item:item
         });
       };
+
+    const goFavorites = (item:Object)=>{
+    navigate('Favorites', {
+        item:item
+    }
+    );
+    };
 
     useEffect(() => {
         const timeout = setTimeout(handleSubmit, 1000);
@@ -83,6 +93,15 @@ const SearchView = ({ onAdd }) => {
                                     <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
                                     <Text style={styles.details}>{item.artist}</Text>
                                 </View>
+                                <TouchableOpacity onPress={()=>{setLike(!like); item.onAdd; goFavorites(item)}}>
+                                    {
+                                    like ?(
+                                    <Ionicons name="heart" size={30} color="red" />
+                                    ): (
+                                    <Ionicons name="heart-outline" size={30} color="black" />)
+                                    }
+                                    
+                                </TouchableOpacity>
                             </TouchableOpacity>
                         )}
                         keyExtractor={(item) => item.id}

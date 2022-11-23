@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {Ionicons } from '@expo/vector-icons';
-import { StyleSheet, Text, View,Image,Button, Linking, Dimensions, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View,Image, Linking, Dimensions, TouchableOpacity } from "react-native";
 
 interface ResultViewProps{
   route:any;
@@ -31,9 +31,9 @@ const ResultView = ({route}: ResultViewProps) => {
               <View>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.details}>{item.artist}</Text>
-              <Text style={styles.text}>Genre : {item.genre}</Text>
+                <Text style={styles.text}>Genre : {item.genre}</Text>
               </View>
-              <TouchableOpacity onPress={()=>{setLike(!like); item.onAdd; goFavorites(item)}}>
+              <TouchableOpacity style={styles.fav} onPress={()=>{setLike(!like); item.onAdd; goFavorites(item)}}>
                 {
                   like ?(
                   <Ionicons name="heart" size={30} color="red" />
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   image: { flex:1, height:Dimensions.get("window").width - 40 },
-  info: { flex:1,marginTop:20, flexDirection: "row", justifyContent:'space-between'},
+  info: { marginTop:20, flexDirection: "row", justifyContent:'space-between'},
   title: { fontSize: 20, fontWeight:'bold' },
   details: { color: "gray"},
   text: { fontSize: 15 },
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   play:{
     flex:1,
     alignItems:'center'
-  },
+  }
 });
 
 export default ResultView;
