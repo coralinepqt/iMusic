@@ -1,20 +1,20 @@
 import React from "react";
-import { FlatList, StyleSheet, Text, View, Button, Image} from "react-native";
+import { FlatList, StyleSheet, Text, View, Button, Image } from "react-native";
 
 const libraryList = [{}];
 
-interface FavoritesProps{
-  route:any;
+interface FavoritesProps {
+  route: any;
 }
 
-const addFavorites=(id:string, title:string, artist:string, artwork:string)=>{
-  libraryList.push({id, title, artist, artwork});
+const addFavorites = (id: string, title: string, artist: string, artwork: string) => {
+  libraryList.push({ id, title, artist, artwork });
   // console.log(artwork);
 }
 
-const LibraryView = ({route}: FavoritesProps) => {
-  if(route.params){
-    const{item} = route.params;
+const LibraryView = ({ route }: FavoritesProps) => {
+  if (route.params) {
+    const { item } = route.params;
     addFavorites(item.id, item.title, item.artist, item.artwork);
   }
   return (
@@ -24,12 +24,13 @@ const LibraryView = ({route}: FavoritesProps) => {
         data={libraryList}
         renderItem={({ item }) => (
           <View style={styles.container}>
-          <Image style={styles.image} source={{ uri: item.artwork }} />
-          <View style={styles.info}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.details}>{item.artist}</Text>
+            <Image style={styles.image} source={{ uri: item.artwork }} />
+            <View style={styles.info}>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.details}>{item.artist}</Text>
+              <Text>------</Text>
+            </View>
           </View>
-        </View>
         )}
         keyExtractor={item => item.id}
       />
