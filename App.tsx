@@ -7,6 +7,7 @@ import ResultView from "./src/components/ResultView";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useState } from "react/cjs/react.development";
+import FavoritesList from "./src/components/FavoritesList";
 
 const Tabs = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ const App = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             switch (route.name) {
-              case "Favorites":
+              case "FavoritesList":
                 iconName = focused ? "heart" : "heart-outline";
                 break;
               case "Search":
@@ -37,14 +38,15 @@ const App = () => {
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
+          tabBarActiveTintColor: 'black',
+          tabBarInactiveTintColor: 'gray',
         })}
-        tabBarOptions={{ activeTintColor: "black", inactiveTintColor: "gray" }}
       >
         <Tabs.Screen name="Search">
           {(props) => <SearchView {...props} onAdd={addItem} />}
         </Tabs.Screen>
-        <Tabs.Screen name="Favorites">
-          {(props) => <Favorites {...props} libraryList={libraryList} />}
+        <Tabs.Screen name="FavoritesList">
+          {(props) => <FavoritesList {...props} libraryList={libraryList} />}
         </Tabs.Screen>
         <Tabs.Screen name="Result">
           {(props) => <ResultView {...props} onAdd={addItem} libraryList={libraryList} />}

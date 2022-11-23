@@ -14,14 +14,13 @@ const ResultView = ({route}: ResultViewProps) => {
   const {navigate} = useNavigation();
 
   const goFavorites = (item:Object)=>{
-    navigate('Favorites', {
+    navigate('FavoritesList', {
         item:item
     }
     );
   };
   
   return (
-    console.log(item),
     <View style={{ flex: 1 }}>
        <View style={styles.container}>
             <View style={styles.header}>
@@ -31,9 +30,10 @@ const ResultView = ({route}: ResultViewProps) => {
               <View>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.details}>{item.artist}</Text>
-                <Text style={styles.text}>Genre : {item.genre}</Text>
+                <Text style={styles.text}>Année de sortie : {(item.year).slice(0,4)}</Text>
+                <Text style={styles.text}>Genre : {item.genre} - {item.country}</Text>
               </View>
-              <TouchableOpacity style={styles.fav} onPress={()=>{setLike(!like); item.onAdd; goFavorites(item)}}>
+              <TouchableOpacity style={styles.fav} onPress={()=>{setLike(!like); goFavorites(item)}}>
                 {
                   like ?(
                   <Ionicons name="heart" size={30} color="red" />
