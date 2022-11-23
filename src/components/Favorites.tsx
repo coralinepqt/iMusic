@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: "white"
     },
-    header: {
+    header: { 
         fontSize: 30,
         backgroundColor: "black",
         color: "white",
