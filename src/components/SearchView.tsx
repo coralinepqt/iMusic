@@ -12,16 +12,17 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react/cjs/react.development";
 import {Ionicons } from '@expo/vector-icons';
+import Favorites from "./Favorites";
 
 const formatResponse = (item) => {
     return {
         title: item.trackName,
         artist: item.artistName,
         artwork: item.artworkUrl100,
-        price: item.collectionPrice,
         genre: item.primaryGenreName,
         year: item.releaseDate,
         url: item.previewUrl,
+        country: item.country,
         id: item.trackId.toString(),
     };
 };
@@ -41,7 +42,6 @@ const searchItunes = async (query) => {
 const SearchView = ({ onAdd }) => {
     const [input, setInput] = useState("");
     const [listResults, setListResults] = useState([]);  
-    const [like, setLike] = useState(false);
 
 
     const handleSubmit = () => {
@@ -59,7 +59,7 @@ const SearchView = ({ onAdd }) => {
       };
 
     const goFavorites = (item:Object)=>{
-    navigate('Favorites', {
+    navigate('FavoritesList', {
         item:item
     }
     );
@@ -88,20 +88,7 @@ const SearchView = ({ onAdd }) => {
                         renderItem={({ item }) => (
                             <TouchableOpacity style={styles.container} 
                             onPress={()=>handleOnPress(item)}>
-                                <Image style={styles.image} source={{ uri: item.artwork }} />
-                                <View style={styles.info}>
-                                    <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
-                                    <Text style={styles.details}>{item.artist}</Text>
-                                </View>
-                                <TouchableOpacity onPress={()=>{setLike(!like); item.onAdd; goFavorites(item)}}>
-                                    {
-                                    like ?(
-                                    <Ionicons name="heart" size={30} color="red" />
-                                    ): (
-                                    <Ionicons name="heart-outline" size={30} color="black" />)
-                                    }
-                                    
-                                </TouchableOpacity>
+                                <Favorites item={item} />
                             </TouchableOpacity>
                         )}
                         keyExtractor={(item) => item.id}
