@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet, Text, View, Button} from "react-native";
+import { FlatList, StyleSheet, Text, View, Button } from "react-native";
 import Favorites from "./Favorites";
 
 interface FavoritesProps {
@@ -13,13 +13,12 @@ const addFavorites = (id: string, title: string, artist: string, artwork: string
 
 const FavoritesList = ({ route }: FavoritesProps) => {
   if (route.params) {
-        const { item } = route.params;
-        addFavorites(item.id, item.title, item.artist, item.artwork);
-      }
+    const { item } = route.params;
+    addFavorites(item.id, item.title, item.artist, item.artwork);
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Favorites</Text>
       <FlatList
         data={libraryList}
         renderItem={({ item }) => <Favorites item={item} />}
@@ -30,7 +29,7 @@ const FavoritesList = ({ route }: FavoritesProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex:1},
+  container: { flex: 1 },
   header: {
     fontSize: 30,
     backgroundColor: "black",

@@ -14,6 +14,10 @@ const Tabs = createBottomTabNavigator();
 const App = () => {
   const [libraryList, setLibraryList] = useState([]);
 
+  /**
+   * The function addItem takes an item as an argument and sets the libraryList state to the previous
+   * state of libraryList plus the item argument.
+   */
   const addItem = (item) => {
     setLibraryList((prev) => [...prev, item]);
   };
@@ -24,7 +28,7 @@ const App = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             switch (route.name) {
-              case "FavoritesList":
+              case "Favorites":
                 iconName = focused ? "heart" : "heart-outline";
                 break;
               case "Search":
@@ -38,14 +42,19 @@ const App = () => {
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: 'gray',
+          tabBarActiveTintColor: '#E63946',
+          tabBarInactiveTintColor: '#8C8C8C',
+          tabBarShowLabel: false,
+          headerStyle: {
+            backgroundColor: '#F5F8FA',
+          },
+          headerTintColor: 'black',
         })}
       >
-        <Tabs.Screen name="Search">
+        <Tabs.Screen name="Search" >
           {(props) => <SearchView {...props} onAdd={addItem} />}
         </Tabs.Screen>
-        <Tabs.Screen name="FavoritesList">
+        <Tabs.Screen name="Favorites">
           {(props) => <FavoritesList {...props} libraryList={libraryList} />}
         </Tabs.Screen>
         <Tabs.Screen name="Result">
