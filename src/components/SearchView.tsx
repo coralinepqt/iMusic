@@ -8,6 +8,7 @@ import {
     TextInput,
     SafeAreaView,
     TouchableOpacity,
+    ActivityIndicator,
     View,
 } from "react-native";
 import { useEffect, useState } from "react/cjs/react.development";
@@ -49,6 +50,7 @@ const searchItunes = async (query) => {
 const SearchView = ({ onAdd }) => {
     const [input, setInput] = useState("");
     const [listResults, setListResults] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const handleSubmit = () => {
         searchItunes(input).then((result) => {
@@ -83,6 +85,7 @@ const SearchView = ({ onAdd }) => {
 
     return (
         <View style={{ flex: 1 }}>
+
             <TextInput
                 value={input}
                 style={styles.input}

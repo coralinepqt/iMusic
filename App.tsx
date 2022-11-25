@@ -2,7 +2,6 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import SearchView from "./src/components/SearchView";
-import Favorites from "./src/components/Favorites"
 import ResultView from "./src/components/ResultView";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -55,10 +54,10 @@ const App = () => {
           {(props) => <SearchView {...props} onAdd={addItem} />}
         </Tabs.Screen>
         <Tabs.Screen name="Favorites">
-          {(props) => <FavoritesList {...props} libraryList={libraryList} />}
+          {(props) => <FavoritesList {...props} />}
         </Tabs.Screen>
         <Tabs.Screen name="Result">
-          {(props) => <ResultView {...props} onAdd={addItem} libraryList={libraryList} />}
+          {(props) => <ResultView {...props} />}
         </Tabs.Screen>
       </Tabs.Navigator>
     </NavigationContainer>

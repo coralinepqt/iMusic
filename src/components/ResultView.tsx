@@ -38,7 +38,7 @@ const ResultView = ({ route }: ResultViewProps) => {
             <Text style={styles.text}>Année de sortie : {(item.year).slice(0, 4)}</Text>
             <Text style={styles.text}>Genre : {item.genre} - {item.country}</Text>
           </View>
-          <TouchableOpacity style={styles.fav} onPress={() => { setLike(!like); goFavorites(item) }}>
+          <TouchableOpacity onPress={() => { setLike(!like); goFavorites(item) }}>
             {
               like ? (
                 <Ionicons name="heart" size={30} color="red" />
