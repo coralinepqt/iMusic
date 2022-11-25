@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Text,
     TextInput,
+    Button,
     SafeAreaView,
     TouchableOpacity,
     ActivityIndicator,
@@ -50,7 +51,6 @@ const searchItunes = async (query) => {
 const SearchView = ({ onAdd }) => {
     const [input, setInput] = useState("");
     const [listResults, setListResults] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     const handleSubmit = () => {
         searchItunes(input).then((result) => {
@@ -58,23 +58,7 @@ const SearchView = ({ onAdd }) => {
         });
     };
 
-    const { navigate } = useNavigation();
-
-    /**
-     * When the user presses on a list item, navigate to the Result screen and pass the item as a prop.
-     */
-    const handleOnPress = (item: Object) => {
-        navigate('Result', {
-            item: item
-        });
-    };
-
-    const goFavorites = (item: Object) => {
-        navigate('Favorites', {
-            item: item
-        }
-        );
-    };
+    const navigation = useNavigation();
 
     useEffect(() => {
         const timeout = setTimeout(handleSubmit, 1000);
@@ -97,10 +81,15 @@ const SearchView = ({ onAdd }) => {
                     <FlatList
                         data={listResults}
                         renderItem={({ item }) => (
-                            <TouchableOpacity style={styles.container}
-                                onPress={() => handleOnPress(item)}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate('Result', { item: item });
+                                }}
+                            >
                                 <Favorites item={item} />
+                                <Button style={styles.button} color="black" title="Add to favories" onPress={() => { onAdd(item); navigation.navigate('Favorites'); }} />
                             </TouchableOpacity>
+
                         )}
                         keyExtractor={(item) => item.id}
                     />

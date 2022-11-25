@@ -11,14 +11,9 @@ const addFavorites = (id: string, title: string, artist: string, artwork: string
   libraryList.push({ id, title, artist, artwork });
 }
 
-const FavoritesList = ({ route }: FavoritesProps) => {
-  if (route.params) {
-    const { item } = route.params;
-    addFavorites(item.id, item.title, item.artist, item.artwork);
-  }
-
+const FavoritesList = ({ libraryList }) => {
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <FlatList
         data={libraryList}
         renderItem={({ item }) => <Favorites item={item} />}

@@ -3,22 +3,16 @@ import React, { useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, View, Image, Linking, Dimensions, TouchableOpacity } from "react-native";
 
-/* Defining the type of the props that the component will receive. */
-interface ResultViewProps {
-  route: any;
-}
 
-const ResultView = ({ route }: ResultViewProps) => {
+const ResultView = ({ item }) => {
   const [like, setLike] = useState(false);
-  const { item } = route.params;
 
   const { navigate } = useNavigation();
-
   /**
-   * GoFavorites is a function that takes an object as an argument and navigates to the Favorites
-   * screen, passing the object as a parameter.
-   */
-  const goFavorites = (item: Object) => {
+ * GoFavorites is a function that takes an object as an argument and navigates to the Favorites
+ * screen, passing the object as a parameter.
+ */
+  const goFavorites = (item) => {
     navigate('Favorites', {
       item: item
     }

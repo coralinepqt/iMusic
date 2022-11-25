@@ -54,10 +54,10 @@ const App = () => {
           {(props) => <SearchView {...props} onAdd={addItem} />}
         </Tabs.Screen>
         <Tabs.Screen name="Favorites">
-          {(props) => <FavoritesList {...props} />}
+          {(props) => <FavoritesList {...props} libraryList={libraryList} />}
         </Tabs.Screen>
         <Tabs.Screen name="Result">
-          {(props) => <ResultView {...props} />}
+          {(props) => <ResultView {...props} onAdd={addItem} libraryList={libraryList} />}
         </Tabs.Screen>
       </Tabs.Navigator>
     </NavigationContainer>
